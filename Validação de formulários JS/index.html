@@ -1,0 +1,67 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo validação formulário</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+<form action="javascript:alert('Formulário aprovado')">
+<p>Dados de login</p>
+<label for="uid">Usuário</label>
+<input type="text" name="uid" id="uid" pattern="[A-Za-z0-9]{4,20}">
+
+<label for="tel">Telefone</label>
+<input type="tel" name="tel" id="tel" minlength="14" maxlength="15" placeholder="(XX) XXXXX-XXXX">
+
+<label for="email">E-mail</label>
+<input type="email" name="email" id="email">
+
+<label for="pwd">Senha</label>
+<input type="password" name="pwd" id="pwd" 
+    pattern="(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$">
+
+<label for="pwd2">Confirmar senha</label>
+<input type="password" name="pwd2" id="pwd2">
+
+<p>Dados pessoais e de contato</p>
+<label for="nome">nome</label>
+<input type="text" name="nome" id="nome">
+
+<label for="cpf">CPF</label>
+<input type="text" name="cpf" id="cpf" minlength="14" maxlength="14">
+
+<label>Gênero</label>
+<label for="masc">Masculino
+    <input type="radio" name="gen" id="masc" value="masc">
+</label>
+<label for="fem">Feminino
+    <input type="radio" name="gen" id="fem" value="fem">
+</label>
+<label for="out">Outro
+    <input type="radio" name="gen" id="out" value="out">
+</label>
+
+<label for="nasc">Data de nascimento</label>
+<input type="date" name="nasc" id="nasc">
+<label for="idade">Idade</label>
+<input type="text" name="idade" id="idade" disabled>
+
+<label for="cor">Cor preferida</label>
+<input type="color" name="cor" id="cor">
+
+<label for="lic">Aceito</label>
+<input type="checkbox" name="lic" id="lic">
+
+<input type="reset" value="Limpar">
+<input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
