@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da forca</title>
+
+    <style>
+        .lulu{
+            width: 100%;
+            height: 30px;
+        }
+        *{padding: 0px;margin: 0px;}
+        .gayzola, .gayzola2{
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            height: 100px;
+            width: 300px;
+            margin-right: calc(50% - 150px);
+            
+        }
+        .gayzola2{
+            background-color: rgb(77, 204, 77);
+        }
+        .gayzola{
+            background-color: rgb(241, 124, 124);
+        }
+        .botao, .botao_verde, .botao_vermelho{
+            height: 50px;
+            width: 50px;
+            background-color: bisque;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer; 
+
+            border-radius: 3px 3px 3px 3px;
+            margin-left: 5px;
+            margin-right: 5px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+        .botao{
+            background-color: bisque;
+        }
+        .botao:hover{
+            background-color: rgb(255, 213, 161);
+        }
+        .botao_verde{
+            background-color: rgb(187, 253, 89);
+        }
+        .botao_verde:hover{
+            background-color: rgb(171, 231, 80);
+        }
+        .botao_vermelho{
+            background-color: rgb(252, 93, 81);
+        }
+        .botao_vermelho:hover{
+            background-color: rgb(231, 81, 71);
+        }
+        
+        .palavras{
+            height: 50px;
+            width: 50px;
+            /* background-color: blueviolet; */
+            margin: 0 10px 0 10px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .palavra_embaixo{
+            height: 5px;
+            width: 100%;
+            background-color: black;
+            border-radius: 10px 10px 10px 10px;
+        }
+        .palavra_emcima{
+            height: calc(100% - 10px);
+            width: 100%;
+            /* background-color: forestgreen; */
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+        body{
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .jogo{
+            height: auto;
+            width: 100vw;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .coisasdaforcaemcima{
+            height: 300px;
+            width: 80%;
+            /* background-color: black; */
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content:space-between;
+        }
+        .aspalavrasembaixo{
+            height: 300px;
+            width: 80%;
+            /* background-color: red; */
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start
+        }
+        .boneco{
+            height: 150px;
+            width: 100px;
+            /* background-color: blue; */
+            color: transparent;
+            
+        }
+        .palavrasaamostra{
+            height: 80px;
+            width: 100%;
+            /* background-color: crimson; */
+            
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        .paradigitar{
+            height: calc(100% - 80px);
+            width: 655px;
+            background-color: rgb(139, 139, 139);
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            border-radius: 10px 10px 10px 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid black
+        }
+        .lugardaforca{
+            height: 100%;
+            width: 300px;
+            /* background-color: green; */
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            justify-self: flex-start;
+        }
+        .forca{
+            height: 100%;
+            width: calc(100% - 100px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .foraca_baixo{
+            height: 20px;
+            width: 150px;
+            background-color: black;
+            border-radius: 10px 10px 0 0;
+            justify-self: flex-end;
+        }
+        .forca_meio{
+            height: 240px;
+            width: 20px;
+            background-color: black;
+            border-radius: 10px 10px 0 0;
+    
+        }
+        .forca_cima{
+            height: 20px;
+            width: 250px;
+        
+            background-color: black;
+            border-radius: 10px 10px 10px 10px;
+            position: fixed;
+            margin-bottom: 220px;
+            margin-left: 70px;
+        }
+        .forca_cimadiagonal{
+            height: 15px;
+            width: 80px;
+        
+            background-color: black;
+            border-radius: 10px 10px 10px 10px;
+            position: fixed;
+            margin-bottom: 168px;
+            margin-left: 55px;
+
+            transform: rotate(-45deg); /* Rotaciona a div em 45 graus no sentido anti-horário */
+            transform-origin: 0 0; /* Define o ponto de origem da rotação */
+        }
+        .c{
+
+display: flex;
+flex-direction: column;
+justify-items: center;
+align-items: center;
+align-content: center;
+width: 100px;
+height: 50px;
+/* background-color: yellow; */
+
+}
+
+.corda{
+
+width: 5px;
+height: 15px;
+background-color: black;
+
+}
+
+.cabeca{
+
+width: 35px;
+height: 35px;
+border-radius: 50px;
+background-color: black;
+
+}
+
+.b{
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+justify-items: center;
+align-items: center;
+align-content: center;
+width: 100px;
+height: 50px;
+/* background-color: lightblue; */
+
+}
+
+.braco1{
+
+width: 8px;
+height: 45px;
+background-color: black;
+transform: rotate(20deg); 
+transform-origin: 0 0;
+
+}
+
+.tronco{
+
+width: 10px;
+height: 50px;
+background-color: black;  
+
+}
+
+.braco2{
+
+
+width: 8px;
+height: 45px;
+background-color: black;
+transform: rotate(-20deg); 
+transform-origin: 0 0;
+margin-top: 4px;
+
+}
+
+.p{
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+justify-items: center;
+align-items: center;
+align-content: center;
+width: 100px;
+height: 50px;
+/* background-color: pink; */
+
+}
+
+.perna1{
+
+width: 8px;
+height: 50px;
+background-color: black;
+transform: rotate(20deg); 
+transform-origin: 0 0;
+margin-top: -4px;
+
+}
+
+.perna2{
+
+width: 8px;
+height: 50px;
+background-color: black;
+transform: rotate(-20deg); 
+transform-origin: 0 0;
+
+
+}
+    </style>
+</head>
+<body>
+    <div class="jogo">
+        <div class="coisasdaforcaemcima" id="coisasdaforcaemcima">
+            <div class="lugardaforca">
+                <div class="forca">
+                    <div class="forca_cima"></div>
+                    <div class="forca_cimadiagonal"></div>
+                    <div class="forca_meio"></div>
+                    <div class="foraca_baixo"></div>
+                    
+                </div>
+                <div class="boneco" id="boneco"></div>
+                <!-- <div class="c"><div class="corda"></div><div class="cabeca"></div></div> -->
+                <!-- <div class="b"><div class="braco1"></div><div class="tronco"></div><div class="braco2"></div></div> -->
+                <!-- <div class="p"><div class="perna1"></div><div class="perna2"></div></div></div> -->
+        </div>
+        </div></div>
+
+        <div class="aspalavrasembaixo">
+            <div class="palavrasaamostra" id="palavrasaamostra">
+               
+            </div>
+            <div class="paradigitar" id="paradigitar"></div>
+
+        </div>
+    
+    <script>
+        palavras_digitadas = [];
+        let letras_Alphabeto = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+        let botoes_alfabeto = [];
+        let palavras_aleatorias = ['casa', 'carro', 'bicicleta', 'computador', 'telefone', 'caneta', 'livro', 'mesa', 'cadeira', 'roupa', 'comida', 'agua', 'cafe', 'cha', 'dinheiro', 'amigo', 'familia', 'trabalho', 'escola', 'hospital', 'praia', 'parque', 'rua', 'cidade', 'pais', 'amor', 'ódio', 'medo', 'felicidade', 'tristeza', 'esperanca', 'sonho', 'realidade', 'tempo', 'vida', 'morte', 'natureza', 'sol', 'lua', 'estrela', 'ceu', 'terra', 'mar', 'rio', 'montanha', 'floresta', 'animal', 'planta', 'ar', 'fogo', 'terra', 'vento', 'frio', 'quente', 'luz', 'sombra', 'cor', 'branco', 'preto', 'vermelho', 'azul', 'amarelo', 'verde', 'laranja', 'roxo', 'rosa', 'cinza', 'marrom', 'bege', 'musica', 'arte', 'filme', 'serie', 'jogo', 'esporte', 'viagem', 'feriado', 'festa', 'casamento', 'aniversario', 'nascimento', 'morte', 'tradicao', 'cultura', 'religiao', 'politica', 'economia', 'sociedade', 'justica', 'liberdade', 'igualdade', 'solidariedade', 'democracia', 'educacao', 'saude', 'seguranca', 'sustentabilidade', 'tecnologia', 'inovacao', 'internet', 'rede', 'programa', 'aplicativo', 'site', 'rede social', 'mensagem', 'e-mail', 'chamada', 'texto', 'foto', 'video', 'memoria', 'processador', 'teclado', 'mouse', 'tela', 'botao', 'menu', 'configuracao', 'ajuste', 'opcao', 'pagina', 'link', 'busca', 'download', 'upload', 'arquivo', 'pasta', 'backup', 'navegador', 'senha', 'login', 'usuario', 'perfil', 'amigo', 'seguir', 'curtir', 'compartilhar', 'comentario', 'postagem', 'feed', 'notificacao', 'privacidade', 'termo', 'condicao', 'politica', 'aceitar', 'recusar', 'concordar', 'discordar', 'permitir', 'bloquear', 'denunciar', 'aprovar', 'rejeitar', 'solicitar', 'confirmar',"arara", "cobra", "leopardo", "papagaio", "tubarao", "orangotango", "hipopotamo", "águia", "golfinho", "zebu", "avestruz", "falcao", "urubu", "coelho", "tartaruga", "lobo-guara", "suricato", "pinguim", "beija-flor", "baleia", "pica-pau", "avestruz", "besouro", "borboleta", "caranguejo", "cavalo", "formiga", "enguia", "bufalo", "cabra", "dromedario", "esquilo", "foca", "gnu", "hiena", "iguana", "javali", "kiwi", "lhama", "morcego", "naja", "ourico", "pombo", "quati", "raposa", "salamandra", "tamandua", "urso-polar", "vespa", "xexeu", "zaragateiro", "atila", "xinxim", "ajuricaba", "anu-branco", "araponga", "berne", "bicho-preguica", "boitata", "camaleao", "coruja", "dourado", "ervilha", "formiga-leao", "gamba", "guaxinim", "hiena-malhada", "iguana-verde", "jiboia", "jupara", "lagarto-verde", "lula", "marmota", "naja-mandarim", "onca-pintada", "pica-pau-verde-barrado", "quati-de-cauda-anelada", "ra-verde-arboricola", "sagui"];
+        
+        // i = 0;palavras_aleatorias.map((x)=>{i++;});console.log(i);
+
+        palavra_sortiada = palavras_aleatorias[Math.floor(Math.random() * (238))]  ;
+
+        function palavras_true_or_false(palavra){
+            if(palavra == "-"){return true}
+            for (let i2 = 0; i2 < palavras_digitadas.length; i2++){
+                if (palavra == palavras_digitadas[i2]){
+                    return true;}
+            }return false;}
+        function Redundancia_Letra_digitada(letra){
+            for (let i3 = 0; i3 < palavras_digitadas.length; i3++){
+                if (letra == palavras_digitadas[i3]){
+                    return false;}
+            }return true;}
+        function index_letra(letra){
+            for (let i4 = 0; i4 < letras_Alphabeto.length; i4++){
+                if (letra == letras_Alphabeto[i4]){
+                    return i4;}}}
+        function check_if_correct_palavra(letra){
+            for (let i5 = 0; i5 < palavra_sortiada.length; i5++){
+                if(letra == palavra_sortiada[i5]){
+                    return true;}
+            }return false;}
+        function playAgain(){
+            botoes_alfabeto = []
+            letras_Alphabeto.map((x)=>{
+                botoes_alfabeto.push(`<div class='botao' onclick="index('${x.toLowerCase()}');" >${x}</div>`);})
+            palavra_sortiada = [];
+            palavra_sortiada = palavras_aleatorias[Math.floor(Math.random() * (238))]  ;
+            document.getElementById("palavrasaamostra").innerHTML = ``;
+            palavras_digitadas = [];
+            document.getElementById("boneco").innerHTML = ``;
+            acertou = 0;
+            letra_digitada = "";
+            palavras_acertadas = 0;
+                console.log(palavra_sortiada)
+
+            
+            document.getElementById("coisasdaforcaemcima").innerHTML = ` <div class="lugardaforca">
+                <div class="forca">
+                    <div class="forca_cima"></div>
+                    <div class="forca_cimadiagonal"></div>
+                    <div class="forca_meio"></div>
+                    <div class="foraca_baixo"></div>
+                </div><div class="boneco" id="boneco"></div></div>`;
+        }
+        palavras_acertadas = 0
+        acertou = 0;
+        botoes_alfabeto = []
+        letras_Alphabeto.map((x)=>{
+            botoes_alfabeto.push(`<div class='botao' onclick="index('${x.toLowerCase()}');" >${x}</div>`);})
+
+        console.log(palavra_sortiada)
+        index();
+        function index(letra_digitada = ""){
+
+
+            if(Redundancia_Letra_digitada(letra_digitada) && letra_digitada != ""){ 
+                palavras_digitadas.push(letra_digitada);
+                
+                if(check_if_correct_palavra(letra_digitada)){
+                    botoes_alfabeto[index_letra(letra_digitada.toUpperCase())] = `<div class='botao_verde');" >${letra_digitada.toUpperCase()}</div>`;
+                
+                }else{
+                    botoes_alfabeto[index_letra(letra_digitada.toUpperCase())] = `<div class='botao_vermelho');" >${letra_digitada.toUpperCase()}</div>`;
+    
+                    
+                    if (document.getElementById("boneco").innerHTML == `<div class="c"><div class="corda"></div><div class="cabeca"></div></div><div class="b"><div class="braco1"></div><div class="tronco"></div><div class="braco2"></div></div><div class="p"><div class="perna1"></div><div class="perna2"></div></div>`){
+                        
+                        document.getElementById("boneco").innerHTML += `<button class="lulu" onclick="playAgain(); index('');">Play Again</button>`;
+                        document.getElementById("coisasdaforcaemcima").innerHTML += `<div class="gayzola"><h1>Voce Perdeu!</h1></div>`;
+                        botoes_alfabeto = [];
+                        letras_Alphabeto.map((x)=>{
+                            botoes_alfabeto.push(`<div class='botao_vermelho' >${x}</div>`);})
+                    }
+                    if(document.getElementById("boneco").innerHTML == `<div class="c"><div class="corda"></div><div class="cabeca"></div></div><div class="b"><div class="braco1"></div><div class="tronco"></div><div class="braco2"></div></div>`){
+                        document.getElementById("boneco").innerHTML +=  `<div class="p"><div class="perna1"></div><div class="perna2"></div></div></div>`
+                    }
+                    if(document.getElementById("boneco").innerHTML == `<div class="c"><div class="corda"></div><div class="cabeca"></div></div>`){
+                        document.getElementById("boneco").innerHTML += `<div class="b"><div class="braco1"></div><div class="tronco"></div><div class="braco2"></div></div>`
+                    }
+                    
+                    if (document.getElementById("boneco").innerHTML == ``){
+                        document.getElementById("boneco").innerHTML += `<div class="c"><div class="corda"></div><div class="cabeca"></div></div>`
+                    } 
+                    
+                    
+                    // console.log(document.getElementById("boneco").innerHTML)
+                    // document.getElementById("boneco").innerHTML += `<button> Play Again </button>`;
+                }
+            }
+            
+            
+            
+            
+            // document.getElementById("paradigitar").innerHTML += `<div class='botao' onclick="index('${x.toLowerCase()}');" >${x}</div>`;
+            // index_letra
+            palavras_acertadas = 0
+
+            document.getElementById("palavrasaamostra").innerHTML = ``;
+            for (let i = 0; i < palavra_sortiada.length; i++) {
+                if(palavras_true_or_false(palavra_sortiada[i])){
+                    document.getElementById("palavrasaamostra").innerHTML += `<div class='palavras'> <div class='palavra_emcima'> ${palavra_sortiada[i]} </div> <div class='palavra_embaixo'> </div></div>`;
+                    palavras_acertadas ++
+                }else{
+                    document.getElementById("palavrasaamostra").innerHTML += `<div class='palavras'> <div class='palavra_emcima'> </div> <div class='palavra_embaixo'> </div></div>`;
+                }
+            }
+        
+            console.log(palavras_acertadas,palavra_sortiada.length)
+            if(palavras_acertadas == palavra_sortiada.length){
+                document.getElementById("coisasdaforcaemcima").innerHTML += `<div class="gayzola2"><h1>Voce Ganhou!</h1></div>`;
+                document.getElementById("boneco").innerHTML += `<button class="lulu" onclick="playAgain(); index('');">Play Again</button>`;                
+                
+                botoes_alfabeto = [];
+                letras_Alphabeto.map((x)=>{
+                    botoes_alfabeto.push(`<div class='botao_verde' >${x}</div>`);})
+            }
+
+            document.getElementById("paradigitar").innerHTML = ``;
+            botoes_alfabeto.map((x)=>{document.getElementById("paradigitar").innerHTML += x;})
+            
+        }
+        
+    </script>
+    
+    
+</body>
+</html>
