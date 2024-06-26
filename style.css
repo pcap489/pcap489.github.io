@@ -45,8 +45,7 @@
     background-image: url(adalgamir.png);
 }
 .trabais{
-    min-height: 500px;
-    max-height: 500px;
+    height: 1000px; 
     width: 1500px;
     background-color: #00000080;
     color: white;
